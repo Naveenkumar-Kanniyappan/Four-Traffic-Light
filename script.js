@@ -34,7 +34,7 @@ function resetLights() {
     direction.red.classList.add('active');
     direction.yellow.classList.remove('active');
     direction.green.classList.remove('active');
-    direction.timer.textContent = '15';  
+    direction.timer.textContent = '30';  
   });
 }
 
