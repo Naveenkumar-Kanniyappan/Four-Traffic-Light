@@ -34,7 +34,7 @@ function resetLights() {
     direction.red.classList.add('active');
     direction.yellow.classList.remove('active');
     direction.green.classList.remove('active');
-    direction.timer.textContent = '30';  
+    direction.timer.textContent = '30' ;  
   });
 }
 
@@ -46,7 +46,7 @@ function activateLight(direction, color) {
 }
 
 function startTimer(direction, color) {
-  let timeLeft = color === 'green' ? 15 : color === 'yellow' ? 10 : 20;
+  let timeLeft = color === 'green' ? 30 : color === 'yellow' ? 20 : 10;
   lights[direction].timer.textContent = timeLeft; 
 
   if (timers[direction]) {
@@ -60,16 +60,17 @@ function startTimer(direction, color) {
       if (color === 'green') {
         setTimeout(() => {
           activateLight(direction, 'yellow');
-        }, 1000);
-      } else if (color === 'yellow') {
+        }, 500);
+      } 
+      else if (color === 'yellow') {
         setTimeout(() => {
           resetLights();
           currentDirectionIndex = (currentDirectionIndex + 1) % directions.length;
           startLights();
-        }, 1000);
+        }, 500);
       }
     }
-  }, 1000);
+  }, 500);
 }
 
 function startLights() {
@@ -77,13 +78,13 @@ function startLights() {
   activateLight(direction, 'green'); 
   setTimeout(() => {
     activateLight(direction, 'yellow'); 
-  }, 15000);
+  }, 30000);
 }
 
 function setLight() {
   resetLights();
   activateLight('north', 'green'); 
-  setTimeout(startLights, 3000); 
+  setTimeout(startLights, 1000); 
 }
 
 setLight(); 
