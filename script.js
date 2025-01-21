@@ -34,57 +34,51 @@ function resetLights() {
     direction.red.classList.add('active');
     direction.yellow.classList.remove('active');
     direction.green.classList.remove('active');
-    direction.timer.textContent = '30' ;  
+    direction.timer.textContent = '30';
   });
 }
 
 function activateLight(direction, color) {
   resetLights();
-  lights[direction].red.classList.remove('active');
-  lights[direction][color].classList.add('active');
+  lights[direction].red.classList.remove('active'); 
+  lights[direction][color].classList.add('active'); 
   startTimer(direction, color);
 }
 
 function startTimer(direction, color) {
-  let timeLeft = color === 'green' ? 30 : color === 'yellow' ? 20 : 10;
-  lights[direction].timer.textContent = timeLeft; 
+  let timeLeft = color === 'green' ? 30 : color === 'yellow' ? 5 : 10; 
+  lights[direction].timer.textContent = timeLeft;
 
   if (timers[direction]) {
-    clearInterval(timers[direction]); 
+    clearInterval(timers[direction]);
   }
+
   timers[direction] = setInterval(() => {
     timeLeft--;
-    lights[direction].timer.textContent = timeLeft; 
+    lights[direction].timer.textContent = timeLeft;
+
     if (timeLeft <= 0) {
       clearInterval(timers[direction]); 
+
       if (color === 'green') {
-        setTimeout(() => {
-          activateLight(direction, 'yellow');
-        }, 500);
+        activateLight(direction, 'yellow');
       } 
       else if (color === 'yellow') {
-        setTimeout(() => {
-          resetLights();
-          currentDirectionIndex = (currentDirectionIndex + 1) % directions.length;
-          startLights();
-        }, 500);
+        currentDirectionIndex = (currentDirectionIndex + 1) % directions.length;
+        startLights();
       }
     }
-  }, 500);
+  }, 500); 
 }
 
 function startLights() {
   const direction = directions[currentDirectionIndex];
-  activateLight(direction, 'green'); 
-  setTimeout(() => {
-    activateLight(direction, 'yellow'); 
-  }, 30000);
+  activateLight(direction, 'green');
 }
 
-function setLight() {
+function initializeLights() {
   resetLights();
-  activateLight('north', 'green'); 
-  setTimeout(startLights, 1000); 
+  startLights();
 }
 
-setLight(); 
+initializeLights();
